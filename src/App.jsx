@@ -75,6 +75,8 @@ import AvatarPage from './pages/component/AvatarPage';
 import TooltipPage from './pages/component/TooltipPage';
 import AccordionPage from './pages/component/AccordionPage';
 import IconsPage from './pages/component/IconsPage';
+import Books from './pages/ecommerce/Books';
+import AddBook from './pages/ecommerce/AddBook';
 
 function App() {
 
@@ -90,9 +92,21 @@ function App() {
     <>
       <Routes>
         <Route exact path="/" element={<Dashboard />} />
+        <Route path="/signin" element={<Signin />} />
+
+        <Route path="/ecommerce/books" element={<Books />} /> 
+        <Route path="/ecommerce/books/add" element={<AddBook />} /> 
+
+
+
+
+
+
         <Route path="/dashboard/analytics" element={<Analytics />} />
         <Route path="/dashboard/fintech" element={<Fintech />} />
+        
         <Route path="/ecommerce/customers" element={<Customers />} />
+
         <Route path="/ecommerce/orders" element={<Orders />} />
         <Route path="/ecommerce/invoices" element={<Invoices />} />
         <Route path="/ecommerce/shop" element={<Shop />} />
@@ -134,7 +148,6 @@ function App() {
         <Route path="/utility/empty-state" element={<EmptyState />} />
         <Route path="/utility/404" element={<PageNotFound />} />
         <Route path="/utility/knowledge-base" element={<KnowledgeBase />} />
-        <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/onboarding-01" element={<Onboarding01 />} />
