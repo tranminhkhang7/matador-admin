@@ -92,9 +92,6 @@ function OrdersTable({
     loadAllOrders();
   }, []);
 
-
-
-
   useEffect(() => {
     selectedItems(isCheck);
     // eslint-disable-next-line react-hooks/exhaustive-deps

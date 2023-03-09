@@ -5,7 +5,7 @@ function BooksTable({
   selectedItems
 }) {
 
-  const invoices = [
+  const books = [
     {
       book_id: '0',
       author: 'if god forbid and fate should step in',
@@ -67,11 +67,6 @@ function BooksTable({
   const [isCheck, setIsCheck] = useState([]);
   const [list, setList] = useState([]);
 
-  useEffect(() => {
-    setList(invoices);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
     setIsCheck(list.map(li => li.id));
@@ -88,6 +83,22 @@ function BooksTable({
       setIsCheck(isCheck.filter(item => item !== id));
     }
   };
+
+  const loadAllBooks = () => {
+    setList(books);
+    // ShelfTypeServices.getAllShelfType()
+    //     .then((res) => {
+    //         // console.log(res.data.data);
+
+    //     })
+    //     .catch((e) => {
+
+    //     });
+  };
+
+  useEffect(() => {
+    loadAllBooks();
+  }, []);
 
   useEffect(() => {
     selectedItems(isCheck);
