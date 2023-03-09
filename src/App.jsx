@@ -76,8 +76,6 @@ import TooltipPage from './pages/component/TooltipPage';
 import AccordionPage from './pages/component/AccordionPage';
 import IconsPage from './pages/component/IconsPage';
 import Books from './pages/ecommerce/Books';
-import AddBook from './pages/ecommerce/AddBook';
-import EditBook from './pages/ecommerce/EditBook';
 
 function App() {
 
@@ -95,7 +93,8 @@ function App() {
         <Route exact path="/" element={<Dashboard />} />
         <Route path="/signin" element={<Signin />} />
 
-        <Route path="/ecommerce/books" element={<Books />} />
+        <Route path="/books" element={<Books />} />
+        <Route path="/orders" element={<Orders />} />
 
         <Route path="/ecommerce/customers" element={<Customers />} />
 

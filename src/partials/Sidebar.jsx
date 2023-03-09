@@ -107,6 +107,7 @@ function Sidebar({
 
         {/* Links */}
         <div className="space-y-8">
+
           {/* Pages group */}
           <div>
             <h3 className="text-xs uppercase text-slate-500 font-semibold pl-3">
@@ -116,8 +117,6 @@ function Sidebar({
               <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">Pages</span>
             </h3>
             <ul className="mt-3">
-
-
 
               {/* Books */}
               <SidebarLinkGroup activecondition={pathname.includes('ecommerce')}>
@@ -165,11 +164,10 @@ function Sidebar({
 
                       <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/ecommerce/books"
+                              to="/books"
                               className={({ isActive }) =>
                                 'block text-slate-400 hover:text-slate-200 transition duration-150 truncate ' + (isActive ? '!text-indigo-500' : '')
                               }
@@ -178,12 +176,29 @@ function Sidebar({
                                 View all books
                               </span>
                             </NavLink>
-                          </li>
-
-                          
-                          
+                          </li>                          
                         </ul>
                       </div>
+
+
+                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                        <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="/orders"
+                              className={({ isActive }) =>
+                                'block text-slate-400 hover:text-slate-200 transition duration-150 truncate ' + (isActive ? '!text-indigo-500' : '')
+                              }
+                            >
+                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                View all orders
+                              </span>
+                            </NavLink>
+                          </li>                          
+                        </ul>
+                      </div>
+                      
                     </React.Fragment>
                   );
                 }}
