@@ -9,9 +9,8 @@ import {
 import { v4 } from "uuid";
 import Sidebar from '../../partials/Sidebar';
 import Header from '../../partials/Header';
-import Tooltip from '../../components/Tooltip';
 
-function AddBook() {
+function EditBook() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const [title, setTitle] = useState("");
@@ -262,4 +261,4 @@ function AddBook() {
     );
 }
 
-export default AddBook;
+export default EditBook;

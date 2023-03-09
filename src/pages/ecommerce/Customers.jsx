@@ -6,7 +6,7 @@ import DeleteButton from '../../partials/actions/DeleteButton';
 import DateSelect from '../../components/DateSelect';
 import FilterButton from '../../components/DropdownFilter';
 import CustomersTable from '../../partials/customers/CustomersTable';
-import PaginationClassic from '../../components/PaginationClassic';
+import PaginationNumeric from '../../components/PaginationNumeric';
 
 function Customers() {
 
@@ -37,7 +37,7 @@ function Customers() {
 
               {/* Left: Title */}
               <div className="mb-4 sm:mb-0">
-                <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">Books 📚</h1>
+                <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">Customer</h1>
               </div>
 
           
@@ -69,7 +69,7 @@ function Customers() {
 
             {/* Pagination */}
             <div className="mt-8">
-              <PaginationClassic />
+              <PaginationNumeric />
             </div>
 
           </div>

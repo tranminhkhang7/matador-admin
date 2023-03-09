@@ -77,6 +77,7 @@ import AccordionPage from './pages/component/AccordionPage';
 import IconsPage from './pages/component/IconsPage';
 import Books from './pages/ecommerce/Books';
 import AddBook from './pages/ecommerce/AddBook';
+import EditBook from './pages/ecommerce/EditBook';
 
 function App() {
 
@@ -96,6 +97,9 @@ function App() {
 
         <Route path="/ecommerce/books" element={<Books />} /> 
         <Route path="/ecommerce/books/add" element={<AddBook />} /> 
+        <Route path="/ecommerce/books/edit" element={<EditBook />} /> 
+
+        <Route path="/ecommerce/customers" element={<Customers />} />
 
 
 
@@ -104,9 +108,6 @@ function App() {
 
         <Route path="/dashboard/analytics" element={<Analytics />} />
         <Route path="/dashboard/fintech" element={<Fintech />} />
-        
-        <Route path="/ecommerce/customers" element={<Customers />} />
-
         <Route path="/ecommerce/orders" element={<Orders />} />
         <Route path="/ecommerce/invoices" element={<Invoices />} />
         <Route path="/ecommerce/shop" element={<Shop />} />

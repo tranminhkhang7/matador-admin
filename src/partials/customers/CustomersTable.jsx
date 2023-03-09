@@ -145,7 +145,7 @@ function CustomersTable({
 
   useEffect(() => {
     setList(customers);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSelectAll = () => {
@@ -167,7 +167,7 @@ function CustomersTable({
 
   useEffect(() => {
     selectedItems(isCheck);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCheck]);
 
   return (
@@ -183,30 +183,21 @@ function CustomersTable({
             {/* Table header */}
             <thead className="text-xs font-semibold uppercase text-slate-500 bg-slate-50 border-t border-b border-slate-200">
               <tr>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                  <div className="flex items-center">
-                    <label className="inline-flex">
-                      <span className="sr-only">Select all</span>
-                      <input className="form-checkbox" type="checkbox" checked={selectAll} onChange={handleSelectAll} />
-                    </label>
-                  </div>
-                </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                  <span className="sr-only">Favourite</span>
-                </th>
+
+
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Order</div>
+                  <div className="font-semibold text-left">Name</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold text-left">Email</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Location</div>
+                  <div className="font-semibold text-left">Address</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold">Orders</div>
+                  <div className="font-semibold">DOB</div>
                 </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                {/* <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold text-left">Last order</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
@@ -217,7 +208,11 @@ function CustomersTable({
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <span className="sr-only">Menu</span>
-                </th>
+                </th> */}
+                {/* <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                  <div className="font-semibold">Action</div>
+                </th> */}
+
               </tr>
             </thead>
             {/* Table body */}
