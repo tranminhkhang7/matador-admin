@@ -223,77 +223,29 @@ function OrdersTableItem(props) {
 
 
 
+
       {/* Modal edit a book */}
-      <ModalBasic id="feedback-modal" modalOpen={editModalOpen} setModalOpen={setEditModalOpen} title="Edit the Book">
+      <ModalBasic id="feedback-modal" modalOpen={editModalOpen} setModalOpen={setEditModalOpen} title="Change Order's status">
         {/* Modal content */}
         <div className="px-5 py-4">
           <div className="space-y-3">
 
             <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="name">Title</label>
-              <input
-                id="name" className="form-input w-full px-2 py-1" type="text"
-                defaultValue={props.title}
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="name">Price</label>
-              <input
-                id="name" className="form-input w-full px-2 py-1" type="text"
-                defaultValue={props.price}
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="name">Author</label>
-              <input
-                id="name" className="form-input w-full px-2 py-1" type="text"
-                defaultValue={props.author}
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="name">Publisher</label>
-              <input
-                id="name" className="form-input w-full px-2 py-1" type="text"
-                defaultValue={props.publisher}
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="feedback">Description</label>
-              <textarea
-                id="feedback" className="form-textarea w-full px-2 py-1" rows="4"
-                defaultValue={props.description}
-              ></textarea>
-            </div>
-
-
-            <div>
               <label className="block text-sm font-medium mb-1" htmlFor="name">Status</label>
-              <input
-                id="name" className="form-input w-full px-2 py-1" type="text"
-                defaultValue={props.status}
-              />
+              <select
+                name="cars" id="cars" form="carform"
+                defaultValue={props.status}>
+                <option value="Delivering">Delivering</option>
+                <option value="Pending">Pending</option>
+                <option value="Canceled">Canceled</option>
+              </select>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="name">Quantity left</label>
-              <input
-                id="name" className="form-input w-full px-2 py-1" type="text"
-                defaultValue={props.quantity_left}
-              />
-            </div>
+            <p>
+              * After changing the status of the order, there will be a notification sent to the customer about the changing on their order. Please make sure you want to change the status.
+            </p>
 
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="feedback">Image</label>
-              <img src={`${props.image_link}`} alt="Girl in a jacket" width="auto" height="auto" />
-              <input
-                id="name" className="form-input w-full px-2 py-1" type="file"
-                onChange={(e) => setImageFile(e.target.files[0])}
-              />
-            </div>
+
 
           </div>
         </div>
@@ -311,45 +263,6 @@ function OrdersTableItem(props) {
           </div>
         </div>
       </ModalBasic>
-
-
-
-
-
-
-      {/* Modal disable a book */}
-      <ModalBlank id="danger-modal" modalOpen={dangerModalOpen} setModalOpen={setDangerModalOpen}>
-        <div className="p-5 flex space-x-4">
-
-          <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-rose-100">
-            <svg className="w-4 h-4 shrink-0 fill-current text-rose-500" viewBox="0 0 16 16">
-              <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 12c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zm1-3H7V4h2v5z" />
-            </svg>
-          </div>
-
-          <div>
-
-            <div className="mb-2">
-              <div className="text-lg font-semibold text-slate-800">Disable this book?</div>
-            </div>
-
-            <div className="text-sm mb-10">
-              <div className="space-y-2">
-                <p>
-                  To delete this book means that you disable the status. You can undo this action after. Are you sure? (pải ghi dài dài ko thôi nó lỗi css soggy)
-                </p>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap justify-end space-x-2">
-              <button className="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" onClick={(e) => { e.stopPropagation(); setDangerModalOpen(false); }}>Cancel</button>
-              <button className="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Yes, Disable it</button>
-            </div>
-          </div>
-        </div>
-      </ModalBlank>
-
-
     </>
   );
 }

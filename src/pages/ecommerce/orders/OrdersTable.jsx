@@ -89,7 +89,7 @@ function OrdersTable({
   return (
     <div className="bg-white shadow-lg rounded-sm border border-slate-200 relative">
       <header className="px-5 py-4">
-        <h2 className="font-semibold text-slate-800">Books <span className="text-slate-400 font-medium">number of books</span></h2>
+        <h2 className="font-semibold text-slate-800">Orders <span className="text-slate-400 font-medium">number of orders</span></h2>
       </header>
       <div>
 
