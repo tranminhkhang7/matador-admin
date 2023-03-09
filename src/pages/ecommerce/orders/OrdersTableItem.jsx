@@ -222,14 +222,11 @@ function OrdersTableItem(props) {
       </ModalBasic>
 
 
-
-
       {/* Modal edit a book */}
       <ModalBasic id="feedback-modal" modalOpen={editModalOpen} setModalOpen={setEditModalOpen} title="Change Order's status">
         {/* Modal content */}
         <div className="px-5 py-4">
           <div className="space-y-3">
-
             <div>
               <label className="block text-sm font-medium mb-1" htmlFor="name">Status</label>
               <select
@@ -240,13 +237,9 @@ function OrdersTableItem(props) {
                 <option value="Canceled">Canceled</option>
               </select>
             </div>
-
             <p>
               * After changing the status of the order, there will be a notification sent to the customer about the changing on their order. Please make sure you want to change the status.
             </p>
-
-
-
           </div>
         </div>
         {/* Modal footer */}

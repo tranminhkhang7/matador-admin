@@ -59,11 +59,6 @@ function OrdersTable({
   const [isCheck, setIsCheck] = useState([]);
   const [list, setList] = useState([]);
 
-  useEffect(() => {
-    setList(orders);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
     setIsCheck(list.map(li => li.id));
@@ -80,6 +75,25 @@ function OrdersTable({
       setIsCheck(isCheck.filter(item => item !== id));
     }
   };
+
+  const loadAllOrders = () => {
+    setList(orders);
+    // ShelfTypeServices.getAllShelfType()
+    //     .then((res) => {
+    //         // console.log(res.data.data);
+
+    //     })
+    //     .catch((e) => {
+
+    //     });
+  };
+
+  useEffect(() => {
+    loadAllOrders();
+  }, []);
+
+
+
 
   useEffect(() => {
     selectedItems(isCheck);
@@ -139,7 +153,7 @@ function OrdersTable({
                       status={order.status}
                       time={order.time}
                       total_amount={order.total_amount}
-                      customer_email={order.customer_email}                      
+                      customer_email={order.customer_email}
                       handleClick={handleClick}
                     />
                   )
