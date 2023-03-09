@@ -1,65 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import OrdersTableItem from './OrdersTableItem';
 
+//ADD MORE SERVICES AND LOAD DATA
+
 function OrdersTable({
   selectedItems
 }) {
 
-  const invoices = [
+  const orders = [
     {
-      book_id: '0',
-      author: 'if god forbid and fate should step in hehe',
-      description: '$129.00',
-      image_link: 'https://cdn2.penguin.com.au/covers/original/9780099511021.jpg',
-      price: 'Dominik Lamakani',
-      publisher: '22/07/2021',
-      quantity_left: '33',
-      status: 'Subscription',
-      title: "hehe"
+      order_id: '0',
+      address: 'if god forbid and fate should step ',
+      phone: '$129.00',
+      status: 'Pending',
+      time: 'Dominik Lamakani',
+      total_amount: '$123.90',
+      customer_email: '33'
     },
     {
-      book_id: '0',
-      author: 'if god forbid and fate should step in',
-      description: '$129.00',
-      image_link: 'https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781501173219/all-the-light-we-cannot-see-9781501173219_hr.jpg',
-      price: 'Dominik Lamakani',
-      publisher: '22/07/2021',
-      quantity_left: '33',
-      status: 'Subscription',
-      title: "hehe"
+      order_id: '0',
+      address: 'if god forbid and fate should step ',
+      phone: '$129.00',
+      status: 'Pending',
+      time: 'Dominik Lamakani',
+      total_amount: '$123.90',
+      customer_email: '33'
     },
     {
-      book_id: '0',
-      author: 'if god forbid and fate should step in',
-      description: '$129.00',
-      image_link: 'Overdue',
-      price: 'Dominik Lamakani',
-      publisher: '22/07/2021',
-      quantity_left: '33',
-      status: 'Subscription',
-      title: "hehe"
+      order_id: '0',
+      address: 'if god forbid and fate should step ',
+      phone: '$129.00',
+      status: 'Pending',
+      time: 'Dominik Lamakani',
+      total_amount: '$123.90',
+      customer_email: '33'
     },
     {
-      book_id: '0',
-      author: 'if god forbid and fate should step in',
-      description: '$129.00',
-      image_link: 'Overdue',
-      price: 'Dominik Lamakani',
-      publisher: '22/07/2021',
-      quantity_left: '33',
-      status: 'Subscription',
-      title: "hehe caicashdfjksdf fsdhfsd"
+      order_id: '0',
+      address: 'if god forbid and fate should step ',
+      phone: '$129.00',
+      status: 'Pending',
+      time: 'Dominik Lamakani',
+      total_amount: '$123.90',
+      customer_email: '33'
     },
     {
-      book_id: '0',
-      author: 'if god forbid and fate should step in',
-      description: '$129.00',
-      image_link: 'Overdue',
-      price: 'Dominik Lamakani',
-      publisher: '22/07/2021',
-      quantity_left: '33',
-      status: 'Subscription',
-      title: "hehe"
+      order_id: '0',
+      address: 'if god forbid and fate should step ',
+      phone: '$129.00',
+      status: 'Pending',
+      time: 'Dominik Lamakani',
+      total_amount: '$123.90',
+      customer_email: '33'
     }
   ];
 
@@ -68,7 +60,7 @@ function OrdersTable({
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    setList(invoices);
+    setList(orders);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -107,44 +99,48 @@ function OrdersTable({
             {/* Table header */}
             <thead className="text-xs font-semibold uppercase text-slate-500 bg-slate-50 border-t border-b border-slate-200">
               <tr>
-                
+
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Title</div>
+                  <div className="font-semibold text-left">Order ID</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Price</div>
+                  <div className="font-semibold text-left">Address</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Author</div>
-                </th>
-                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Quantity Left</div>
+                  <div className="font-semibold text-left">Phone</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <div className="font-semibold text-left">Status</div>
                 </th>
                 <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                  <div className="font-semibold text-left">Actions</div>
+                  <div className="font-semibold text-left">Time</div>
+                </th>
+                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                  <div className="font-semibold text-left">Total Amount</div>
+                </th>
+                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                  <div className="font-semibold text-left">Customer Email</div>
+                </th>
+                <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                  <div className="font-semibold text-left">Action</div>
                 </th>
               </tr>
             </thead>
             {/* Table body */}
             <tbody className="text-sm divide-y divide-slate-200">
               {
-                list.map(book => {
+                list.map(order => {
                   return (
                     <OrdersTableItem
-                      key={book.book_id}
-                      book_id={book.book_id}
-                      author={book.author}
-                      description={book.description}
-                      image_link={book.image_link}
-                      price={book.price}
-                      publisher={book.publisher}
-                      quantity_left={book.quantity_left}
-                      status={book.status}
-                      title={book.title}
-                      handleClick={handleClick}                   
+                      key={order.order_id}
+                      order_id={order.order_id}
+                      address={order.address}
+                      phone={order.phone}
+                      status={order.status}
+                      time={order.time}
+                      total_amount={order.total_amount}
+                      customer_email={order.customer_email}                      
+                      handleClick={handleClick}
                     />
                   )
                 })
