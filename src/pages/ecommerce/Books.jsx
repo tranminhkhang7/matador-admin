@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
 
+import storage from '../../firebase';
+import {
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "firebase/storage";
+import { v4 } from "uuid";
+
 import Sidebar from '../../partials/Sidebar';
 import Header from '../../partials/Header';
 import SearchForm from '../../partials/actions/SearchForm';
@@ -28,11 +36,10 @@ function Books() {
   const [status, setStatus] = useState();
   const [quantityLeft, setQuantityLeft] = useState();
   const [image, setImage] = useState();
+  const [imageFile, setImageFile] = useState();
 
 
-
-
-  const onAdd = () => {
+  const onAdd = async (e) => {
     console.log(title, author);
     // ShelfTypeServices.addShelfType(idAsset, updateAssetObj)
     //   .then((res) => {
@@ -41,6 +48,33 @@ function Books() {
     //   .catch((e) => {
 
     //   });
+
+    e && e.preventDefault();
+    let imageLink = "abcd";
+    const imageRef = ref(storage, `images/${imageFile.name + v4()}`);
+    await uploadBytes(imageRef, imageFile).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
+            console.log("image ne", url);
+            // setImageLink(url);
+            imageLink = url;
+            // console.log("image222", imageLink);
+
+            // try {
+            //     BooksService.addNewBook(title, author, publisher, price,
+            //         imageLink, description, quantityLeft).then(
+            //             () => {
+            //                 history.push('/bookmanagement');
+            //                 // window.location.reload();
+            //             },
+            //             (error) => {
+            //                 console.log(error);
+            //             }
+            //         );
+            // } catch (err) {
+            //     console.log(err);
+            // }
+        });
+    });
   };
 
 
@@ -120,7 +154,7 @@ function Books() {
       </div>
 
 
-      {/* Modal edit a type */}
+      {/* Modal add a book */}
       <ModalBasic id="feedback-modal" modalOpen={editModalOpen} setModalOpen={setEditModalOpen} title="Edit the Book">
         {/* Modal content */}
         <div className="px-5 py-4">
@@ -185,7 +219,11 @@ function Books() {
 
             <div>
               <label className="block text-sm font-medium mb-1" htmlFor="feedback">Image</label>
-
+              <input
+                id="name" className="form-input w-full px-2 py-1" type="file"
+                onChange={(e) => setImageFile(e.target.files[0])}
+              />
+              
             </div>
 
           </div>

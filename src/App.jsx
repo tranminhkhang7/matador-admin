@@ -95,9 +95,7 @@ function App() {
         <Route exact path="/" element={<Dashboard />} />
         <Route path="/signin" element={<Signin />} />
 
-        <Route path="/ecommerce/books" element={<Books />} /> 
-        <Route path="/ecommerce/books/add" element={<AddBook />} /> 
-        <Route path="/ecommerce/books/edit" element={<EditBook />} /> 
+        <Route path="/ecommerce/books" element={<Books />} />
 
         <Route path="/ecommerce/customers" element={<Customers />} />
 

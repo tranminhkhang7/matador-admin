@@ -1,4 +1,13 @@
 import React, { useState } from 'react';
+
+import storage from '../../../firebase';
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL
+} from "firebase/storage";
+import { v4 } from "uuid";
+
 import ModalBasic from '../../../components/ModalBasic';
 import ModalBlank from '../../../components/ModalBlank';
 
@@ -16,15 +25,43 @@ function BooksTableItem(props) {
   const [status, setStatus] = useState();
   const [quantityLeft, setQuantityLeft] = useState();
   const [image, setImage] = useState();
+  const [imageFile, setImageFile] = useState();
 
-  const onSaveEdit = () => {
-    ShelfTypeServices.addShelfType(idAsset, updateAssetObj)
-      .then((res) => {
+  const onSaveEdit = async(e) => {
+    // ShelfTypeServices.addShelfType(idAsset, updateAssetObj)
+    //   .then((res) => {
 
-      })
-      .catch((e) => {
+    //   })
+    //   .catch((e) => {
 
+    //   });
+
+    e && e.preventDefault();
+    let imageLink = "abcd";
+    const imageRef = ref(storage, `images/${imageFile.name + v4()}`);
+    await uploadBytes(imageRef, imageFile).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        console.log("image ne", url);
+        // setImageLink(url);
+        imageLink = url;
+        // console.log("image222", imageLink);
+
+        // try {
+        //     BooksService.addNewBook(title, author, publisher, price,
+        //         imageLink, description, quantityLeft).then(
+        //             () => {
+        //                 history.push('/bookmanagement');
+        //                 // window.location.reload();
+        //             },
+        //             (error) => {
+        //                 console.log(error);
+        //             }
+        //         );
+        // } catch (err) {
+        //     console.log(err);
+        // }
       });
+    });
   };
 
 
@@ -193,7 +230,7 @@ function BooksTableItem(props) {
 
 
 
-      {/* Modal edit a type */}
+      {/* Modal edit a book */}
       <ModalBasic id="feedback-modal" modalOpen={editModalOpen} setModalOpen={setEditModalOpen} title="Edit the Book">
         {/* Modal content */}
         <div className="px-5 py-4">
@@ -259,6 +296,10 @@ function BooksTableItem(props) {
             <div>
               <label className="block text-sm font-medium mb-1" htmlFor="feedback">Image</label>
               <img src={`${props.image_link}`} alt="Girl in a jacket" width="auto" height="auto" />
+              <input
+                id="name" className="form-input w-full px-2 py-1" type="file"
+                onChange={(e) => setImageFile(e.target.files[0])}
+              />
             </div>
 
           </div>
@@ -284,9 +325,6 @@ function BooksTableItem(props) {
 
 
       {/* Modal disable a book */}
-
-
-
       <ModalBlank id="danger-modal" modalOpen={dangerModalOpen} setModalOpen={setDangerModalOpen}>
         <div className="p-5 flex space-x-4">
 
