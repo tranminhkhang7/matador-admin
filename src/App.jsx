@@ -76,6 +76,9 @@ import TooltipPage from './pages/component/TooltipPage';
 import AccordionPage from './pages/component/AccordionPage';
 import IconsPage from './pages/component/IconsPage';
 import Books from './pages/ecommerce/Books';
+import AdminRoute from './routes/AdminRoute';
+// import AdminRoute from './routes/AdminRoute';
+// import AuthRoute from './routes/AuthRoute';
 
 function App() {
 
@@ -90,10 +93,15 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Dashboard />} />
         <Route path="/signin" element={<Signin />} />
 
-        <Route path="/books" element={<Books />} />
+        <Route path="/books" element={
+          <AdminRoute>
+            <Books />
+          </AdminRoute>
+        } />
+
+        {/* <Route path="/books" element={<Books />} /> */}
         <Route path="/orders" element={<Orders />} />
 
         <Route path="/ecommerce/customers" element={<Customers />} />

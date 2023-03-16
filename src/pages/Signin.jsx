@@ -23,9 +23,7 @@ function Signin() {
       var pathname = "/settings/account";
       AuthService.login(payload)
         .then((res) => {
-          console.log(res.data.token);
-
-
+          // console.log(res.data.token);
 
 
           // Set the cookies
@@ -41,6 +39,9 @@ function Signin() {
 
           document.cookie = `access_token=${JSON.stringify(accessToken)}; SameSite=strict; ${Object.entries(cookieOptions).map(([k, v]) => `${k}=${v}`).join('; ')}`;
           document.cookie = `user_role=${JSON.stringify(userRole)}; SameSite=strict; ${Object.entries(cookieOptions).map(([k, v]) => `${k}=${v}`).join('; ')}`;
+
+
+
 
           navigate("/");
 
