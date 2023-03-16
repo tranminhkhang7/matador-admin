@@ -35,7 +35,6 @@ function OrdersTableItem(props) {
     //   .catch((e) => {
 
     //   });
-
     e && e.preventDefault();
     let imageLink = "abcd";
     const imageRef = ref(storage, `images/${imageFile.name + v4()}`);

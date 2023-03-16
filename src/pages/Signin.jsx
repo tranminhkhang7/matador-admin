@@ -1,17 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import AuthImage from '../images/auth-image.jpg';
 import AuthDecoration from '../images/auth-decoration.png';
 import { Button } from '@material-ui/core';
+import AuthService from '../services/AuthService';
 
 function Signin() {
-
   let navigate = useNavigate();
-  const handleSubmit = () => {
-    
-    navigate("/");
-    // event.preventDefault();
+
+  const [email, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (email && password) {
+      // setLoadingModalOpen(true);
+      const payload = { email, password };
+
+      var pathname = "/settings/account";
+      AuthService.login(payload)
+        .then((res) => {
+          console.log(res.data.token);
+
+
+
+
+          // Set the cookies
+          const accessToken = res.data.token;
+          const userRole = 'admin'; // chỉnh lại nhe
+
+          const cookieOptions = {
+            expires: new Date(Date.now() + 3600 * 1000 * 24), // Set the expiration date to 24 hours from now
+            path: '/',
+            secure: true, // Only send the cookie over HTTPS
+            // httpOnly: true, // Prevent JavaScript code from accessing the cookie
+          };
+
+          document.cookie = `access_token=${JSON.stringify(accessToken)}; SameSite=strict; ${Object.entries(cookieOptions).map(([k, v]) => `${k}=${v}`).join('; ')}`;
+          document.cookie = `user_role=${JSON.stringify(userRole)}; SameSite=strict; ${Object.entries(cookieOptions).map(([k, v]) => `${k}=${v}`).join('; ')}`;
+
+          navigate("/");
+
+
+
+
+          // setLoadingModalOpen(false);
+          // toast.success("Welcome Back");
+        })
+        .catch((err) => {
+          // setIsError(true);
+          // setErrorMessage(err.response.data.message);
+          // setLoadingModalOpen(false);
+          // console.log(err.response.data);
+        });
+    } else {
+
+      // setErrorMessage("Usename or password cannot be empty!");
+    }
+
   };
 
   return (
@@ -35,21 +84,37 @@ function Signin() {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="email">Email Address</label>
-                    <input id="email" className="form-input w-full" type="email" />
+                    <input
+                      required
+                      onChange={(e) => {
+                        setUserName(e.target.value);
+                      }}
+                      id="email"
+                      className="form-input w-full"
+                      type="text" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="password">Password</label>
-                    <input id="password" className="form-input w-full" type="password" autoComplete="on" />
+                    <input
+                      required
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                      id="password"
+                      className="form-input w-full"
+                      type="password"
+                      autoComplete="on" />
                   </div>
                 </div>
                 <div className="flex items-center justify-between mt-6">
                   <div className="mr-1">
                     <Link className="text-sm underline hover:no-underline" to="/reset-password">Forget password?</Link>
                   </div>
-                  <input type="submit"className="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3" />
-      
+                  <input type="submit" className="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3" />
 
- 
+
+
+
                 </div>
               </form>
 
