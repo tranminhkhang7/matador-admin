@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import storage from '../../../firebase';
 import {
@@ -17,6 +17,7 @@ function OrdersTableItem(props) {
   const [detailModalOpen, setDetailModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [dangerModalOpen, setDangerModalOpen] = useState(false);
+  const [orderDetail, setOrderDetail] = useState();
 
   const [orderStatus, setOrderStatus] = useState(props.status);
 
@@ -42,16 +43,28 @@ function OrdersTableItem(props) {
     }
   };
 
+  // const [idDisabledBook, setIdDisabledBook] = useState();
+  // const [statusPopupDisableBook, setStatusPopupDisableBook] = useState(false);
+
+  // const openPopupDisableBook = (idBook) => {
+  //   setIdDisabledBook(idBook);
+  //   setStatusPopupDisableBook(true);
+  // }
+  // const closePopupDisableBook = () => setStatusPopupDisableBook(false);
 
 
-  const [idDisabledBook, setIdDisabledBook] = useState();
-  const [statusPopupDisableBook, setStatusPopupDisableBook] = useState(false);
+  const loadAllOrderDetail = () => {
+    OrderService.getAllOrderDetail(props.order_id)
+      .then((res) => {
+        console.log(res.data);
+        setOrderDetail(res.data);
+      })
+      .catch((e) => { });
+  };
 
-  const openPopupDisableBook = (idBook) => {
-    setIdDisabledBook(idBook);
-    setStatusPopupDisableBook(true);
-  }
-  const closePopupDisableBook = () => setStatusPopupDisableBook(false);
+  useEffect(() => {
+    loadAllOrderDetail();
+  }, []);
 
   return (
     <>
@@ -78,9 +91,6 @@ function OrdersTableItem(props) {
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
           <div className={`font-medium `}>{props.total_amount}</div>
         </td>
-        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-          <div className={`font-medium `}>{props.customer_email}</div>
-        </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
           <div className="space-x-1">
             <button
@@ -97,90 +107,61 @@ function OrdersTableItem(props) {
       </tr>
 
       {/* Modal order detail */}
-      <ModalBasic id="feedback-modal" modalOpen={detailModalOpen} setModalOpen={setDetailModalOpen} title="Book Detail" >
+      <ModalBasic
+        id="feedback-modal" modalOpen={detailModalOpen} setModalOpen={setDetailModalOpen} title="Book Detail" >
         {/* Modal content */}
-        <div className="px-5 py-4">
 
-          <div className="space-y-3">
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="name">Title</label>
-              <input
-                readOnly={true}
-                id="name" className="form-input w-full px-2 py-1" type="text"
-                defaultValue={props.title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="name">Price</label>
-              <input
-                readOnly={true}
-                id="name" className="form-input w-full px-2 py-1" type="text"
-                defaultValue={props.price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="name">Author</label>
-              <input
-                readOnly={true}
-                id="name" className="form-input w-full px-2 py-1" type="text"
-                defaultValue={props.author}
-                onChange={(e) => setAuthor(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="name">Publisher</label>
-              <input
-                readOnly={true}
-                id="name" className="form-input w-full px-2 py-1" type="text"
-                defaultValue={props.publisher}
-                onChange={(e) => setPublisher(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="feedback">Description</label>
-              <textarea
-                readOnly={true}
-                id="feedback" className="form-textarea w-full px-2 py-1" rows="4"
-                defaultValue={props.description}
-                onChange={(e) => setDescription(e.target.value)}
-              ></textarea>
-            </div>
-
-
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="name">Status</label>
-              <input
-                readOnly={true}
-                id="name" className="form-input w-full px-2 py-1" type="text"
-                defaultValue={props.status}
-                onChange={(e) => setStatus(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="name">Quantity left</label>
-              <input
-                readOnly={true}
-                id="name" className="form-input w-full px-2 py-1" type="text"
-                defaultValue={props.quantity_left}
-                onChange={(e) => setQuantityLeft(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1" htmlFor="feedback">Image</label>
-              <img src={`${props.image_link}`} alt="Girl in a jacket" width="auto" height="auto" />
-            </div>
-
-
-          </div>
-        </div>
+        <table className="table-auto w-full">
+          <thead className="text-xs font-semibold uppercase text-slate-500 bg-slate-50 border-t border-b border-slate-200">
+            <tr>
+              <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                <div className="font-semibold text-left">ID</div>
+              </th>
+              <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                <div className="font-semibold text-left">Title</div>
+              </th>
+              <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                <div className="font-semibold text-left">Author</div>
+              </th>
+              <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                <div className="font-semibold text-left">Quantity</div>
+              </th>
+              <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                <div className="font-semibold text-left">Price</div>
+              </th>
+              <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                <div className="font-semibold text-left">Image</div>
+              </th>
+            </tr>
+          </thead>
+          <tbody className="text-sm divide-y divide-slate-200">
+            {orderDetail?.map(book => {
+              return (
+                <tr>
+                  <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                    <div className={`font-medium `}>{book?.book?.bookId}</div>
+                  </td>
+                  <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                    <div className={`font-medium `}>{book?.book?.title}</div>
+                  </td>
+                  <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                    <div className={`font-medium `}>{book?.book?.author}</div>
+                  </td>
+                  <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                    <div className={`font-medium `}>{book?.quantity}</div>
+                  </td>
+                  <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                    <div className={`font-medium `}>{book?.price}</div>
+                  </td>
+                  <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                    {/* <div className={`font-medium `}>{book?.price}</div> */}
+                    <img src={`${book?.book?.imageLink}`} alt="Girl in a jacket" width="auto" height="auto" />
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
       </ModalBasic>
 
 
@@ -202,7 +183,9 @@ function OrdersTableItem(props) {
               </select>
             </div>
             <p>
-              * After changing the status of the order, there will be a notification sent to the customer about the changing on their order. Please make sure you want to change the status.
+              <i>
+                * After changing the status of the order, there will be a notification sent to the customer about the changing on their order. Please make sure you want to change the status.
+              </i>
             </p>
           </div>
         </div>

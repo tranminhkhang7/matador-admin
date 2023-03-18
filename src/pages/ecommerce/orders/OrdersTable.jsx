@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
+import OrderService from '../../../services/OrderService';
 import OrdersTableItem from './OrdersTableItem';
 
 //ADD MORE SERVICES AND LOAD DATA
@@ -66,15 +67,14 @@ function OrdersTable() {
   const [list, setList] = useState([]);
 
   const loadAllOrders = () => {
-    setList(orders);
-    // ShelfTypeServices.getAllShelfType()
-    //     .then((res) => {
-    //         // console.log(res.data.data);
+    // setList(orders);
+    OrderService.getAllOrders()
+      .then((res) => {
+        setList(res.data);
+      })
+      .catch((e) => {
 
-    //     })
-    //     .catch((e) => {
-
-    //     });
+      });
   };
 
   useEffect(() => {
@@ -115,9 +115,6 @@ function OrdersTable() {
                     <div className="font-semibold text-left">Total Amount</div>
                   </th>
                   <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                    <div className="font-semibold text-left">Customer Email</div>
-                  </th>
-                  <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                     <div className="font-semibold text-left">Action</div>
                   </th>
                 </tr>
@@ -129,13 +126,12 @@ function OrdersTable() {
                     return (
                       <OrdersTableItem
                         key={order.order_id}
-                        order_id={order.order_id}
+                        order_id={order.orderId}
                         address={order.address}
                         phone={order.phone}
                         status={order.status}
                         time={order.time}
                         total_amount={order.total_amount}
-                        customer_email={order.customer_email}
                       />
                     )
                   })
