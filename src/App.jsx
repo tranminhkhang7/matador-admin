@@ -96,13 +96,19 @@ function App() {
         <Route path="/signin" element={<Signin />} />
 
         <Route path="/books" element={
-          <AdminRoute>
+          // <AdminRoute>
             <Books />
-          </AdminRoute>
+          // </AdminRoute>
         } />
 
-        {/* <Route path="/books" element={<Books />} /> */}
-        <Route path="/orders" element={<Orders />} />
+        <Route path="/orders" element={
+          // <AdminRoute>
+            <Orders />
+          // </AdminRoute>
+        } />
+
+
+        {/* <Route path="/orders" element={<Orders />} /> */}
 
         <Route path="/ecommerce/customers" element={<Customers />} />
 

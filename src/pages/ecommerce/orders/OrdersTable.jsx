@@ -18,7 +18,16 @@ function OrdersTable({
       customer_email: '33'
     },
     {
-      order_id: '0',
+      order_id: '1',
+      address: 'please tell them my name',
+      phone: '$129.00',
+      status: 'Pending',
+      time: 'Dominik Lamakani',
+      total_amount: '$123.90',
+      customer_email: '33'
+    },
+    {
+      order_id: '2',
       address: 'if god forbid and fate should step ',
       phone: '$129.00',
       status: 'Pending',
@@ -27,7 +36,7 @@ function OrdersTable({
       customer_email: '33'
     },
     {
-      order_id: '0',
+      order_id: '3',
       address: 'if god forbid and fate should step ',
       phone: '$129.00',
       status: 'Pending',
@@ -36,17 +45,8 @@ function OrdersTable({
       customer_email: '33'
     },
     {
-      order_id: '0',
-      address: 'if god forbid and fate should step ',
-      phone: '$129.00',
-      status: 'Pending',
-      time: 'Dominik Lamakani',
-      total_amount: '$123.90',
-      customer_email: '33'
-    },
-    {
-      order_id: '0',
-      address: 'if god forbid and fate should step ',
+      order_id: '4',
+      address: 'and forces us to a goodbye ',
       phone: '$129.00',
       status: 'Pending',
       time: 'Dominik Lamakani',

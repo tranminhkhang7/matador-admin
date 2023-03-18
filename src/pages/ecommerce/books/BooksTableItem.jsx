@@ -27,7 +27,7 @@ function BooksTableItem(props) {
   const [image, setImage] = useState();
   const [imageFile, setImageFile] = useState();
 
-  const onSaveEdit = async(e) => {
+  const onSaveEdit = async (e) => {
     // ShelfTypeServices.addShelfType(idAsset, updateAssetObj)
     //   .then((res) => {
 
@@ -67,12 +67,10 @@ function BooksTableItem(props) {
 
   const statusColor = (status) => {
     switch (status) {
-      case 'Paid':
+      case 'active':
         return 'bg-emerald-100 text-emerald-600';
-      case 'Due':
-        return 'bg-amber-100 text-amber-600';
-      case 'Overdue':
-        return 'bg-rose-100 text-rose-500';
+      case 'disabled':
+        return 'bg-slate-100 text-slate-500';
       default:
         return 'bg-slate-100 text-slate-500';
     }
@@ -82,6 +80,30 @@ function BooksTableItem(props) {
 
   const [idDisabledBook, setIdDisabledBook] = useState();
   const [statusPopupDisableBook, setStatusPopupDisableBook] = useState(false);
+
+  const [checkedItems, setCheckedItems] = useState({});
+
+  const handleCheck = (event) => {
+    setCheckedItems({
+      ...checkedItems,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  // assume we have an array of pre-selected checkboxes with their names
+  const preselectedItems = props.genreName.map(genre => genre.genreName);
+  const genreName = props.listGenre.map(genre => genre.genreName);
+
+  // initialize the checkedItems state with preselected checkboxes
+  useState(() => {
+    const initialState = {};
+    preselectedItems.forEach((item) => {
+      initialState[item] = true;
+    });
+    setCheckedItems(initialState);
+  }, []);
+
+
 
   const openPopupDisableBook = (idBook) => {
     setIdDisabledBook(idBook);
@@ -100,7 +122,7 @@ function BooksTableItem(props) {
           <div className={`font-medium `}>{props.title}</div>
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-          <div className="font-medium text-sky-500">{props.price}</div>
+          <div className="font-medium text-sky-500">${props.price}</div>
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
           <div className={`font-medium `}>{props.author}</div>
@@ -136,8 +158,6 @@ function BooksTableItem(props) {
           </div>
         </td>
       </tr>
-
-
 
       {/* Modal book detail */}
       <ModalBasic id="feedback-modal" modalOpen={detailModalOpen} setModalOpen={setDetailModalOpen} title="Book Detail" >
@@ -198,12 +218,7 @@ function BooksTableItem(props) {
 
             <div>
               <label className="block text-sm font-medium mb-1" htmlFor="name">Status</label>
-              <input
-                readOnly={true}
-                id="name" className="form-input w-full px-2 py-1" type="text"
-                defaultValue={props.status}
-                onChange={(e) => setStatus(e.target.value)}
-              />
+              <div className={`inline-flex font-medium rounded-full text-center px-2.5 py-0.5 ${statusColor(props.status)}`}>{props.status}</div>
             </div>
 
             <div>
@@ -217,18 +232,30 @@ function BooksTableItem(props) {
             </div>
 
             <div>
+              <label className="block text-sm font-medium mb-1" htmlFor="name">Genre</label>
+              {
+                props?.genreName.map(genre => {
+                  return (
+                    <>
+                      <div
+                        className="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-slate-100 text-slate-500">
+                        {genre?.genreName}
+                      </div>
+                      &nbsp;&nbsp;
+                    </>
+                  )
+                })
+              }
+            </div>
+
+            <div>
               <label className="block text-sm font-medium mb-1" htmlFor="feedback">Image</label>
               <img src={`${props.image_link}`} alt="Girl in a jacket" width="auto" height="auto" />
             </div>
 
-
           </div>
         </div>
       </ModalBasic>
-
-
-
-
 
       {/* Modal edit a book */}
       <ModalBasic id="feedback-modal" modalOpen={editModalOpen} setModalOpen={setEditModalOpen} title="Edit the Book">
@@ -279,10 +306,14 @@ function BooksTableItem(props) {
 
             <div>
               <label className="block text-sm font-medium mb-1" htmlFor="name">Status</label>
-              <input
-                id="name" className="form-input w-full px-2 py-1" type="text"
+              <select
+                name="status" id="status"
                 defaultValue={props.status}
-              />
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <option value="Delivered">Active</option>
+                <option value="Pending">Disabled</option>
+              </select>
             </div>
 
             <div>
@@ -291,6 +322,30 @@ function BooksTableItem(props) {
                 id="name" className="form-input w-full px-2 py-1" type="text"
                 defaultValue={props.quantity_left}
               />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1" htmlFor="name">Genre</label>
+              {
+                genreName.map(genre => {
+                  return (
+                    <>
+                      <label>
+                        <input
+                          type="checkbox"
+                          name={genre}
+                          checked={checkedItems[genre]}
+                          onChange={handleCheck}
+                        /> &nbsp;
+
+                        {genre}
+                      </label>
+         
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                    </>
+                  )
+                })
+              }
             </div>
 
             <div>
@@ -307,7 +362,7 @@ function BooksTableItem(props) {
         {/* Modal footer */}
         <div className="px-5 py-4 border-t border-slate-200">
           <div className="flex flex-wrap justify-end space-x-2">
-            <button className="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" onClick={(e) => { e.stopPropagation(); setEditModalOpen(false); }}>Cancel</button>
+            <button className="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" onClick={(e) => { e.stopPropagation(); setEditModalOpen(false); setCheckedItems([])}}>Cancel</button>
             <button
               className="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white"
               onClick={(e) => {

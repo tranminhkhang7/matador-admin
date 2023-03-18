@@ -1,0 +1,42 @@
+.pagination {
+    padding-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.page-num {
+    padding: 6px 12px;
+    display: inline;
+    border: 1px solid rgb(207,215,223);
+    border-left: none;
+    background-color: white;
+}
+.page-pre {
+    padding: 6px 12px;
+    display: inline;
+    border: 1px solid rgb(207,215,223);
+    background-color: white;
+}
+.page-next {
+    padding: 6px 12px;
+    display: inline;
+    border: 1px solid rgb(207,215,223);
+    border-left: none;
+    background-color: white;
+}
+.page-break {
+    padding: 6px 12px;
+    display: inline;
+    border: 1px solid rgb(207,215,223);
+    border-left: none;
+    background-color: white;
+}
+
+
+.active {
+    padding: 6px 12px;
+    display: inline;
+    border: 1px solid rgb(80, 69, 229);
+    color: white;
+    background-color: rgb(80, 69, 229);
+}

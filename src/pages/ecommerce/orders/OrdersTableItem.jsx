@@ -10,6 +10,7 @@ import { v4 } from "uuid";
 
 import ModalBasic from '../../../components/ModalBasic';
 import ModalBlank from '../../../components/ModalBlank';
+import OrderService from '../../../services/OrderService';
 
 function OrdersTableItem(props) {
 
@@ -17,60 +18,27 @@ function OrdersTableItem(props) {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [dangerModalOpen, setDangerModalOpen] = useState(false);
 
-  const [title, setTitle] = useState();
-  const [price, setPrice] = useState();
-  const [author, setAuthor] = useState();
-  const [publisher, setPublisher] = useState();
-  const [desciption, setDescription] = useState();
-  const [status, setStatus] = useState();
-  const [quantityLeft, setQuantityLeft] = useState();
-  const [image, setImage] = useState();
-  const [imageFile, setImageFile] = useState();
+  const [orderStatus, setOrderStatus] = useState(props.status);
 
   const onSaveEdit = async (e) => {
-    // ShelfTypeServices.addShelfType(idAsset, updateAssetObj)
-    //   .then((res) => {
+    // console.log("hello", props.order_id, orderStatus);
+    OrderService.fetchChangeStatusOrder(props.order_id, orderStatus)
+        .then((res) => {
+            // console.log(res.data.data);
 
-    //   })
-    //   .catch((e) => {
+        })
+        .catch((e) => {
 
-    //   });
-    e && e.preventDefault();
-    let imageLink = "abcd";
-    const imageRef = ref(storage, `images/${imageFile.name + v4()}`);
-    await uploadBytes(imageRef, imageFile).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        console.log("image ne", url);
-        // setImageLink(url);
-        imageLink = url;
-        // console.log("image222", imageLink);
-
-        // try {
-        //     BooksService.addNewBook(title, author, publisher, price,
-        //         imageLink, description, quantityLeft).then(
-        //             () => {
-        //                 history.push('/bookmanagement');
-        //                 // window.location.reload();
-        //             },
-        //             (error) => {
-        //                 console.log(error);
-        //             }
-        //         );
-        // } catch (err) {
-        //     console.log(err);
-        // }
-      });
-    });
-  };
-
+        });
+  }
 
   const statusColor = (status) => {
     switch (status) {
-      case 'Paid':
+      case 'Delivered':
         return 'bg-emerald-100 text-emerald-600';
-      case 'Due':
+      case 'Pending':
         return 'bg-amber-100 text-amber-600';
-      case 'Overdue':
+      case 'Canceled':
         return 'bg-rose-100 text-rose-500';
       default:
         return 'bg-slate-100 text-slate-500';
@@ -131,9 +99,7 @@ function OrdersTableItem(props) {
         </td>
       </tr>
 
-
-
-      {/* Modal book detail */}
+      {/* Modal order detail */}
       <ModalBasic id="feedback-modal" modalOpen={detailModalOpen} setModalOpen={setDetailModalOpen} title="Book Detail" >
         {/* Modal content */}
         <div className="px-5 py-4">
@@ -230,8 +196,10 @@ function OrdersTableItem(props) {
               <label className="block text-sm font-medium mb-1" htmlFor="name">Status</label>
               <select
                 name="cars" id="cars" form="carform"
-                defaultValue={props.status}>
-                <option value="Delivering">Delivering</option>
+                defaultValue={props.status}
+                onChange={(e) => setOrderStatus(e.target.value)}
+              >
+                <option value="Delivered">Delivered</option>
                 <option value="Pending">Pending</option>
                 <option value="Canceled">Canceled</option>
               </select>

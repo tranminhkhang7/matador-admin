@@ -133,12 +133,7 @@ function Books() {
               {/* Table */}
               <BooksTable selectedItems={handleSelectedItems} />
 
-              {/* Pagination */}
-              <div className="mt-8">
-                <PaginationNumeric />
-              </div>
-
-
+             
 
 
 

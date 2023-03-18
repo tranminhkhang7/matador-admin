@@ -1,18 +1,25 @@
-// import axios from "./config";
+import axiosClient from "./AxiosCustom";
 
-// async function addNewBook(title, author, publisher, price, imageLink, description, quantityLeft) {
-//     return await axios
-//     .post(`/accounts`, title, author, publisher, price, imageLink, description, quantityLeft, 
-//     {
-//       headers: { Authorization: "Bearer " + readCookies.getAccessToken() },
-//     })
-//     .then((response) => {
-//       return response;
-//     });
-// }
+class BookServices {
+  //admin
+  getAllBooks(pageNo, pageSize) {
+    return axiosClient.get(`/book/retrieve?pageNo=${pageNo}&pageSize=${pageSize}`);
+  }
 
-// const BooksService = {
-//     addNewBook
-// };
+  //admin
+  getAllGenres() {
+    return axiosClient.get(`/book/genre`);
+  }
 
-// export default BooksService;
+//   //admin
+//   addCategory(categoryRequest) {
+//     return axiosClient.post("/category", categoryRequest);
+//   }
+
+//   //admin
+//   updateCategory(categoryRequest) {
+//     return axiosClient.put("/category", categoryRequest);
+//   }
+
+}
+export default new BookServices();
