@@ -60,10 +60,6 @@ function Orders() {
               {/* Table */}
               <OrdersTable selectedItems={handleSelectedItems} />
 
-              {/* Pagination */}
-              <div className="mt-8">
-                <PaginationNumeric />
-              </div>
             </div>
           </main>
         </div>

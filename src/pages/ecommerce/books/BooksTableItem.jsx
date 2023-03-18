@@ -10,6 +10,7 @@ import { v4 } from "uuid";
 
 import ModalBasic from '../../../components/ModalBasic';
 import ModalBlank from '../../../components/ModalBlank';
+import BookService from '../../../services/BookService';
 
 function BooksTableItem(props) {
 
@@ -17,51 +18,75 @@ function BooksTableItem(props) {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [dangerModalOpen, setDangerModalOpen] = useState(false);
 
-  const [title, setTitle] = useState();
-  const [price, setPrice] = useState();
-  const [author, setAuthor] = useState();
-  const [publisher, setPublisher] = useState();
-  const [desciption, setDescription] = useState();
-  const [status, setStatus] = useState();
-  const [quantityLeft, setQuantityLeft] = useState();
-  const [image, setImage] = useState();
+  const [title, setTitle] = useState(props.title);
+  const [price, setPrice] = useState(props.price);
+  const [author, setAuthor] = useState(props.author);
+  const [publisher, setPublisher] = useState(props.publisher);
+  const [description, setDescription] = useState(props.description);
+  const [status, setStatus] = useState(props.status);
+  const [quantityLeft, setQuantityLeft] = useState(props.quantity_left);
+  const [isImageChanged, setIsImageChange] = useState(false);
   const [imageFile, setImageFile] = useState();
+  const [checkedItems, setCheckedItems] = useState({});
 
   const onSaveEdit = async (e) => {
-    // ShelfTypeServices.addShelfType(idAsset, updateAssetObj)
-    //   .then((res) => {
-
-    //   })
-    //   .catch((e) => {
-
-    //   });
-
-    e && e.preventDefault();
-    let imageLink = "abcd";
-    const imageRef = ref(storage, `images/${imageFile.name + v4()}`);
-    await uploadBytes(imageRef, imageFile).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        console.log("image ne", url);
-        // setImageLink(url);
-        imageLink = url;
-        // console.log("image222", imageLink);
-
-        // try {
-        //     BooksService.addNewBook(title, author, publisher, price,
-        //         imageLink, description, quantityLeft).then(
-        //             () => {
-        //                 history.push('/bookmanagement');
-        //                 // window.location.reload();
-        //             },
-        //             (error) => {
-        //                 console.log(error);
-        //             }
-        //         );
-        // } catch (err) {
-        //     console.log(err);
-        // }
-      });
+    let editedGenres = [];
+    props.listGenre.forEach((item) => {
+      if (checkedItems[item.genreName] == true) {
+        editedGenres.push(item);
+      }
     });
+
+    if (isImageChanged === false) {
+
+      const bookRequest = {
+        bookId: props.book_id,
+        title: title,
+        description: description,
+        imageLink: props.imageLink,
+        price: price,
+        author: author,
+        publisher: publisher,
+        quantityLeft: quantityLeft,
+        status: status,
+        // genreName: editedGenres
+      }
+
+      BookService.updateBook(bookRequest)
+        .then((res) => {
+          setEditModalOpen(false);
+          window.location.reload();
+        })
+        .catch((e) => { });
+    } else {
+      e && e.preventDefault();
+      const imageRef = ref(storage, `images/${imageFile.name + v4()}`);
+      await uploadBytes(imageRef, imageFile).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
+          console.log("fb image ", url);
+          // setImageLink(url);
+          const bookRequest = {
+            bookId: props.book_id,
+            title: title,
+            description: description,
+            imageLink: props.imageLink,
+            price: price,
+            author: author,
+            publisher: publisher,
+            quantityLeft: quantityLeft,
+            status: status,
+            imageLink: url
+            // genreName: editedGenres
+          }
+          BookService.updateBook(bookRequest)
+            .then((res) => {
+              setEditModalOpen(false);
+              window.location.reload();
+            })
+            .catch((e) => { });
+        });
+      });
+    }
   };
 
 
@@ -81,7 +106,7 @@ function BooksTableItem(props) {
   const [idDisabledBook, setIdDisabledBook] = useState();
   const [statusPopupDisableBook, setStatusPopupDisableBook] = useState(false);
 
-  const [checkedItems, setCheckedItems] = useState({});
+
 
   const handleCheck = (event) => {
     setCheckedItems({
@@ -268,14 +293,16 @@ function BooksTableItem(props) {
               <input
                 id="name" className="form-input w-full px-2 py-1" type="text"
                 defaultValue={props.title}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium mb-1" htmlFor="name">Price</label>
               <input
-                id="name" className="form-input w-full px-2 py-1" type="text"
+                id="name" className="form-input w-full px-2 py-1" type="number"
                 defaultValue={props.price}
+                onChange={(e) => setPrice(e.target.value)}
               />
             </div>
 
@@ -284,6 +311,7 @@ function BooksTableItem(props) {
               <input
                 id="name" className="form-input w-full px-2 py-1" type="text"
                 defaultValue={props.author}
+                onChange={(e) => setAuthor(e.target.value)}
               />
             </div>
 
@@ -292,6 +320,7 @@ function BooksTableItem(props) {
               <input
                 id="name" className="form-input w-full px-2 py-1" type="text"
                 defaultValue={props.publisher}
+                onChange={(e) => setPublisher(e.target.value)}
               />
             </div>
 
@@ -300,6 +329,7 @@ function BooksTableItem(props) {
               <textarea
                 id="feedback" className="form-textarea w-full px-2 py-1" rows="4"
                 defaultValue={props.description}
+                onChange={(e) => setDescription(e.target.value)}
               ></textarea>
             </div>
 
@@ -311,16 +341,17 @@ function BooksTableItem(props) {
                 defaultValue={props.status}
                 onChange={(e) => setStatus(e.target.value)}
               >
-                <option value="Delivered">Active</option>
-                <option value="Pending">Disabled</option>
+                <option value="active">Active</option>
+                <option value="disable">Disabled</option>
               </select>
             </div>
 
             <div>
               <label className="block text-sm font-medium mb-1" htmlFor="name">Quantity left</label>
               <input
-                id="name" className="form-input w-full px-2 py-1" type="text"
+                id="name" className="form-input w-full px-2 py-1" type="number" min={0} step={1}
                 defaultValue={props.quantity_left}
+                onChange={(e) => setQuantityLeft(e.target.value)}
               />
             </div>
 
@@ -340,7 +371,6 @@ function BooksTableItem(props) {
 
                         {genre}
                       </label>
-         
                       &nbsp;&nbsp;&nbsp;&nbsp;
                     </>
                   )
@@ -353,7 +383,7 @@ function BooksTableItem(props) {
               <img src={`${props.image_link}`} alt="Girl in a jacket" width="auto" height="auto" />
               <input
                 id="name" className="form-input w-full px-2 py-1" type="file"
-                onChange={(e) => setImageFile(e.target.files[0])}
+                onChange={(e) => { setImageFile(e.target.files[0]); setIsImageChange(true); }}
               />
             </div>
 
@@ -362,7 +392,7 @@ function BooksTableItem(props) {
         {/* Modal footer */}
         <div className="px-5 py-4 border-t border-slate-200">
           <div className="flex flex-wrap justify-end space-x-2">
-            <button className="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" onClick={(e) => { e.stopPropagation(); setEditModalOpen(false); setCheckedItems([])}}>Cancel</button>
+            <button className="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" onClick={(e) => { e.stopPropagation(); setEditModalOpen(false); setCheckedItems([]); setIsImageChange(false); }}>Cancel</button>
             <button
               className="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white"
               onClick={(e) => {

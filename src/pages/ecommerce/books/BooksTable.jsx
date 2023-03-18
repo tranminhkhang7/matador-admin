@@ -81,9 +81,7 @@ function BooksTable() {
         setList(res.data.listBook)
         console.log(res.data.listBook);
       })
-      .catch((e) => {
-
-      });
+      .catch((e) => { });
 
     BookService.getAllGenres()
       .then((res) => {
@@ -91,15 +89,11 @@ function BooksTable() {
         // console.log(res.data);
       })
       .catch((e) => { });
-
-
   };
 
   useEffect(() => {
     loadAllBooks();
   }, [currentPage]);
-
-
 
   return (
     <>
@@ -143,7 +137,7 @@ function BooksTable() {
                     return (
                       <BooksTableItem
                         key={book.book_id}
-                        book_id={book.book_id}
+                        book_id={book.bookId}
                         author={book.author}
                         description={book.description}
                         image_link={book.imageLink}
@@ -154,22 +148,14 @@ function BooksTable() {
                         title={book.title}
                         genreName={book.genreName}
                         listGenre={listGenre}
-                      // handleClick={handleClick}
                       />
                     )
                   })
                 }
               </tbody>
             </table>
-
-
-
-
-
           </div>
-
         </div>
-
       </div>
 
       <ReactPaginate

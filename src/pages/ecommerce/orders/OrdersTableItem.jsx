@@ -23,13 +23,10 @@ function OrdersTableItem(props) {
   const onSaveEdit = async (e) => {
     // console.log("hello", props.order_id, orderStatus);
     OrderService.fetchChangeStatusOrder(props.order_id, orderStatus)
-        .then((res) => {
-            // console.log(res.data.data);
-
-        })
-        .catch((e) => {
-
-        });
+      .then((res) => {
+        // console.log(res.data.data);
+      })
+      .catch((e) => { });
   }
 
   const statusColor = (status) => {
