@@ -43,7 +43,7 @@ function BooksTableItem(props) {
         bookId: props.book_id,
         title: title,
         description: description,
-        imageLink: props.imageLink,
+        imageLink: props.image_link,
         price: price,
         author: author,
         publisher: publisher,
@@ -137,6 +137,13 @@ function BooksTableItem(props) {
   return (
     <>
       <tr>
+        <td
+          className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap"
+          style={{ cursor: "pointer" }}
+          onClick={(e) => { e.stopPropagation(); setDetailModalOpen(true); }}
+        >
+          <div className={`font-medium `}>{props.book_id}</div>
+        </td>
         <td
           className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap"
           style={{ cursor: "pointer" }}

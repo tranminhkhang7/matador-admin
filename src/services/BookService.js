@@ -3,7 +3,7 @@ import axiosClient from "./AxiosCustom";
 class BookServices {
   //admin
   getAllBooks(pageNo, pageSize) {
-    return axiosClient.get(`/book/retrieve?pageNo=${pageNo}&pageSize=${pageSize}`);
+    return axiosClient.get(`/book/retrieve?pageNo=${pageNo}&pageSize=${pageSize}&sort=bookId&sortType=DESC`);
   }
 
   //admin

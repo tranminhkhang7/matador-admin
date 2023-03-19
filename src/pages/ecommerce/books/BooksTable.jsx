@@ -75,7 +75,7 @@ function BooksTable() {
 
   const loadAllBooks = () => {
     // setList(books);
-    BookService.getAllBooks(currentPage, 50)
+    BookService.getAllBooks(currentPage, 100)
       .then((res) => {
         setTotalPage(res.data.totalPage)
         setList(res.data.listBook)
@@ -98,17 +98,18 @@ function BooksTable() {
     <>
       <div className="bg-white shadow-lg rounded-sm border border-slate-200 relative">
         <header className="px-5 py-4">
-          <h2 className="font-semibold text-slate-800">Books <span className="text-slate-400 font-medium">number of books</span></h2>
+          <h2 className="font-semibold text-slate-800">Books <span className="text-slate-400 font-medium"></span></h2>
         </header>
         <div>
-
           {/* Table */}
           <div className="overflow-x-auto">
             <table className="table-auto w-full">
               {/* Table header */}
               <thead className="text-xs font-semibold uppercase text-slate-500 bg-slate-50 border-t border-b border-slate-200">
                 <tr>
-
+                  <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                    <div className="font-semibold text-left">ID</div>
+                  </th>
                   <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                     <div className="font-semibold text-left">Title</div>
                   </th>

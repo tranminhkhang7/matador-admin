@@ -96,15 +96,15 @@ function App() {
         <Route path="/signin" element={<Signin />} />
 
         <Route path="/books" element={
-          // <AdminRoute>
+          <AdminRoute>
             <Books />
-          // </AdminRoute>
+          </AdminRoute>
         } />
 
         <Route path="/orders" element={
-          // <AdminRoute>
+          <AdminRoute>
             <Orders />
-          // </AdminRoute>
+          </AdminRoute>
         } />
 
 

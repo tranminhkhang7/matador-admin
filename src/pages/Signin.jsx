@@ -40,14 +40,7 @@ function Signin() {
           document.cookie = `access_token=${JSON.stringify(accessToken)}; SameSite=strict; ${Object.entries(cookieOptions).map(([k, v]) => `${k}=${v}`).join('; ')}`;
           document.cookie = `user_role=${JSON.stringify(userRole)}; SameSite=strict; ${Object.entries(cookieOptions).map(([k, v]) => `${k}=${v}`).join('; ')}`;
 
-
-
-
-          navigate("/");
-
-
-
-
+          navigate("/books");
           // setLoadingModalOpen(false);
           // toast.success("Welcome Back");
         })

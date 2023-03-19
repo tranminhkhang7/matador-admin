@@ -187,7 +187,6 @@ function Sidebar({
                   );
                 }}
               </SidebarLinkGroup>
-
             </ul>
           </div>
         </div>

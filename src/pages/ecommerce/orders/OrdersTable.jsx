@@ -71,10 +71,9 @@ function OrdersTable() {
     OrderService.getAllOrders()
       .then((res) => {
         setList(res.data);
+        console.log(res.data);
       })
-      .catch((e) => {
-
-      });
+      .catch((e) => { });
   };
 
   useEffect(() => {
@@ -97,7 +96,7 @@ function OrdersTable() {
                 <tr>
 
                   <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                    <div className="font-semibold text-left">Order ID</div>
+                    <div className="font-semibold text-left">ID</div>
                   </th>
                   <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                     <div className="font-semibold text-left">Address</div>
@@ -142,24 +141,6 @@ function OrdersTable() {
           </div>
         </div>
       </div>
-
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="Next"
-        onPageChange={handlePageChange}
-        pageRangeDisplayed={2}
-        pageCount={totalPage}
-        previousLabel="Previous"
-        renderOnZeroPageCount={null}
-        containerClassName="pagination"
-        forcePage={currentPage}
-        breakLinkClassName="page-break"
-        disabledClassName="page-disable"
-        pageLinkClassName="page-num"
-        previousLinkClassName="page-pre"
-        nextLinkClassName="page-next"
-        activeLinkClassName="active"
-      />
 
     </>
   );

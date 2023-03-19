@@ -1,15 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import storage from '../../../firebase';
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL
-} from "firebase/storage";
-import { v4 } from "uuid";
-
 import ModalBasic from '../../../components/ModalBasic';
-import ModalBlank from '../../../components/ModalBlank';
 import OrderService from '../../../services/OrderService';
 
 function OrdersTableItem(props) {
@@ -30,9 +21,9 @@ function OrdersTableItem(props) {
 
   const [orderStatus, setOrderStatus] = useState(props.status);
   const [orderDetail, setOrderDetail] = useState();
+  const [timeOrder, setTimeOrder] = useState();
 
   const onSaveEdit = async (e) => {
-    // console.log("hello", props.order_id, orderStatus);
     OrderService.fetchChangeStatusOrder(props.order_id, orderStatus)
       .then((res) => {
         window.location.reload();
@@ -40,18 +31,6 @@ function OrdersTableItem(props) {
       })
       .catch((e) => { });
   }
-
-
-
-  // const [idDisabledBook, setIdDisabledBook] = useState();
-  // const [statusPopupDisableBook, setStatusPopupDisableBook] = useState(false);
-
-  // const openPopupDisableBook = (idBook) => {
-  //   setIdDisabledBook(idBook);
-  //   setStatusPopupDisableBook(true);
-  // }
-  // const closePopupDisableBook = () => setStatusPopupDisableBook(false);
-
 
   const loadAllOrderDetail = () => {
     OrderService.getAllOrderDetail(props.order_id)
@@ -64,6 +43,17 @@ function OrdersTableItem(props) {
 
   useEffect(() => {
     loadAllOrderDetail();
+    const milliseconds = props.time;
+    const date = new Date(milliseconds);
+    const formattedDate = date.toLocaleString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    setTimeOrder(formattedDate);
   }, []);
 
   return (
@@ -86,7 +76,7 @@ function OrdersTableItem(props) {
           <div className={`inline-flex font-medium rounded-full text-center px-2.5 py-0.5 ${statusColor(props.status)}`}>{props.status}</div>
         </td >
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-          <div className={`font-medium `}>{props.time}</div>
+          <div className={`font-medium `}>{timeOrder}</div>
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
           <div className={`font-medium `}>{props.total_amount}</div>
