@@ -49,7 +49,7 @@ function BooksTableItem(props) {
         publisher: publisher,
         quantityLeft: quantityLeft,
         status: status,
-        // genreName: editedGenres
+        genreName: editedGenres
       }
 
       BookService.updateBook(bookRequest)
@@ -100,8 +100,6 @@ function BooksTableItem(props) {
         return 'bg-slate-100 text-slate-500';
     }
   };
-
-
 
   const [idDisabledBook, setIdDisabledBook] = useState();
   const [statusPopupDisableBook, setStatusPopupDisableBook] = useState(false);
@@ -170,7 +168,7 @@ function BooksTableItem(props) {
               </svg>
             </button>
 
-            <button
+            {/* <button
               className="text-rose-500 hover:text-rose-600 rounded-full"
               onClick={(e) => { e.stopPropagation(); setDangerModalOpen(true); }}
             >
@@ -179,7 +177,7 @@ function BooksTableItem(props) {
                 <path d="M13 15h2v6h-2zM17 15h2v6h-2z" />
                 <path d="M20 9c0-.6-.4-1-1-1h-6c-.6 0-1 .4-1 1v2H8v2h1v10c0 .6.4 1 1 1h12c.6 0 1-.4 1-1V13h1v-2h-4V9zm-6 1h4v1h-4v-1zm7 3v9H11v-9h10z" />
               </svg>
-            </button>
+            </button> */}
           </div>
         </td>
       </tr>
@@ -361,7 +359,7 @@ function BooksTableItem(props) {
                 genreName.map(genre => {
                   return (
                     <>
-                      <label>
+                      <label key={genre?.genreId}>
                         <input
                           type="checkbox"
                           name={genre}

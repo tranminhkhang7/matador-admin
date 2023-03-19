@@ -13,35 +13,35 @@ import ModalBlank from '../../../components/ModalBlank';
 import OrderService from '../../../services/OrderService';
 
 function OrdersTableItem(props) {
-
-  const [detailModalOpen, setDetailModalOpen] = useState(false);
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [dangerModalOpen, setDangerModalOpen] = useState(false);
-  const [orderDetail, setOrderDetail] = useState();
-
-  const [orderStatus, setOrderStatus] = useState(props.status);
-
-  const onSaveEdit = async (e) => {
-    // console.log("hello", props.order_id, orderStatus);
-    OrderService.fetchChangeStatusOrder(props.order_id, orderStatus)
-      .then((res) => {
-        // console.log(res.data.data);
-      })
-      .catch((e) => { });
-  }
-
   const statusColor = (status) => {
     switch (status) {
-      case 'Delivered':
+      case 'delivered':
         return 'bg-emerald-100 text-emerald-600';
-      case 'Pending':
+      case 'pending':
         return 'bg-amber-100 text-amber-600';
-      case 'Canceled':
+      case 'canceled':
         return 'bg-rose-100 text-rose-500';
       default:
         return 'bg-slate-100 text-slate-500';
     }
   };
+  const [detailModalOpen, setDetailModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+
+  const [orderStatus, setOrderStatus] = useState(props.status);
+  const [orderDetail, setOrderDetail] = useState();
+
+  const onSaveEdit = async (e) => {
+    // console.log("hello", props.order_id, orderStatus);
+    OrderService.fetchChangeStatusOrder(props.order_id, orderStatus)
+      .then((res) => {
+        window.location.reload();
+        // console.log(res.data.data);
+      })
+      .catch((e) => { });
+  }
+
+
 
   // const [idDisabledBook, setIdDisabledBook] = useState();
   // const [statusPopupDisableBook, setStatusPopupDisableBook] = useState(false);
@@ -154,7 +154,6 @@ function OrdersTableItem(props) {
                     <div className={`font-medium `}>{book?.price}</div>
                   </td>
                   <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                    {/* <div className={`font-medium `}>{book?.price}</div> */}
                     <img src={`${book?.book?.imageLink}`} alt="Girl in a jacket" width="auto" height="auto" />
                   </td>
                 </tr>
@@ -177,9 +176,9 @@ function OrdersTableItem(props) {
                 defaultValue={props.status}
                 onChange={(e) => setOrderStatus(e.target.value)}
               >
-                <option value="Delivered">Delivered</option>
-                <option value="Pending">Pending</option>
-                <option value="Canceled">Canceled</option>
+                <option value="delivered">Delivered</option>
+                <option value="pending">Pending</option>
+                <option value="canceled">Canceled</option>
               </select>
             </div>
             <p>

@@ -12,6 +12,11 @@ class BookServices {
   }
 
   //admin
+  addBook(bookRequest) {
+    return axiosClient.post("/book/add", bookRequest);
+  }
+
+  //admin
   updateBook(bookRequest) {
     return axiosClient.post("/book/update", bookRequest);
   }

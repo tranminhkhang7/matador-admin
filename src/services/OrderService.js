@@ -12,7 +12,7 @@ class OrderServices {
   }
 
   fetchChangeStatusOrder(idOrder, status) {
-    return axiosClient.put(`/order/${idOrder}?status=${status}`);
+    return axiosClient.post(`admin/order/status?id=${idOrder}&status=${status}`);
   }
 
   // addCategory(categoryRequest) {

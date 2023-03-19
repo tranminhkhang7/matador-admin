@@ -75,7 +75,7 @@ function BooksTable() {
 
   const loadAllBooks = () => {
     // setList(books);
-    BookService.getAllBooks(currentPage, 10)
+    BookService.getAllBooks(currentPage, 50)
       .then((res) => {
         setTotalPage(res.data.totalPage)
         setList(res.data.listBook)
@@ -86,7 +86,6 @@ function BooksTable() {
     BookService.getAllGenres()
       .then((res) => {
         setListGenre(res.data);
-        // console.log(res.data);
       })
       .catch((e) => { });
   };
