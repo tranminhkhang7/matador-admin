@@ -94,13 +94,11 @@ function App() {
     <>
       <Routes>
         <Route path="/signin" element={<Signin />} />
-
         <Route path="/books" element={
           <AdminRoute>
             <Books />
           </AdminRoute>
         } />
-
         <Route path="/orders" element={
           <AdminRoute>
             <Orders />
@@ -108,15 +106,7 @@ function App() {
         } />
 
 
-        {/* <Route path="/orders" element={<Orders />} /> */}
-
         <Route path="/ecommerce/customers" element={<Customers />} />
-
-
-
-
-
-
         <Route path="/dashboard/analytics" element={<Analytics />} />
         <Route path="/dashboard/fintech" element={<Fintech />} />
         <Route path="/ecommerce/orders" element={<Orders />} />

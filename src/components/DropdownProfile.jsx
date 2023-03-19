@@ -13,6 +13,19 @@ function DropdownProfile({
   const trigger = useRef(null);
   const dropdown = useRef(null);
 
+  const removeAllCookies = () => {
+    // Split the cookies into an array
+    const cookies = document.cookie.split(";");
+
+    // Loop through the array and set each cookie's expiration time to a time in the past
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i];
+      const eqPos = cookie.indexOf("=");
+      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+    }
+  }
+
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }) => {
@@ -73,12 +86,15 @@ function DropdownProfile({
           </div>
           <ul>
             <li>
-              <Link
+              <button
                 className="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
-                to="/signin"
-                onClick={() => setDropdownOpen(!dropdownOpen)}>
+                onClick={() => {
+                  setDropdownOpen(!dropdownOpen);
+                  removeAllCookies();
+                  window.location.reload();
+                }}>
                 Sign Out
-              </Link>
+              </button>
             </li>
           </ul>
         </div>

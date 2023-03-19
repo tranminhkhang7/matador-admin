@@ -102,7 +102,7 @@ function Signin() {
                 </div>
                 <div className="flex items-center justify-between mt-6">
                   <div className="mr-1">
-                    <Link className="text-sm underline hover:no-underline" to="/reset-password">Forget password?</Link>
+                    {/* <Link className="text-sm underline hover:no-underline" to="/reset-password">Forget password?</Link> */}
                   </div>
                   <input type="submit" className="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3" />
 

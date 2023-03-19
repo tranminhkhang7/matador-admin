@@ -79,7 +79,7 @@ function OrdersTableItem(props) {
           <div className={`font-medium `}>{timeOrder}</div>
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-          <div className={`font-medium `}>{props.total_amount}</div>
+          <div className={`font-medium `}>${props.total_amount}</div>
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
           <div className="space-x-1">
@@ -141,7 +141,7 @@ function OrdersTableItem(props) {
                     <div className={`font-medium `}>{book?.quantity}</div>
                   </td>
                   <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                    <div className={`font-medium `}>{book?.price}</div>
+                    <div className={`font-medium `}>${book?.price}</div>
                   </td>
                   <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                     <img src={`${book?.book?.imageLink}`} alt="Girl in a jacket" width="auto" height="auto" />
