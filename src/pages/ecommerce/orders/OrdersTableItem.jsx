@@ -66,19 +66,29 @@ function OrdersTableItem(props) {
         >
           <div className={`font-medium `}>{props.order_id}</div>
         </td>
-        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap"
+          style={{ cursor: "pointer" }}
+          onClick={(e) => { e.stopPropagation(); setDetailModalOpen(true); }}>
           <div className="font-medium text-sky-500">{props.address}</div>
         </td>
-        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap"
+          style={{ cursor: "pointer" }}
+          onClick={(e) => { e.stopPropagation(); setDetailModalOpen(true); }}>
           <div className={`font-medium `}>{props.phone}</div>
         </td>
-        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap"
+          style={{ cursor: "pointer" }}
+          onClick={(e) => { e.stopPropagation(); setDetailModalOpen(true); }}>
           <div className={`inline-flex font-medium rounded-full text-center px-2.5 py-0.5 ${statusColor(props.status)}`}>{props.status}</div>
         </td >
-        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap"
+          style={{ cursor: "pointer" }}
+          onClick={(e) => { e.stopPropagation(); setDetailModalOpen(true); }}>
           <div className={`font-medium `}>{timeOrder}</div>
         </td>
-        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap"
+          style={{ cursor: "pointer" }}
+          onClick={(e) => { e.stopPropagation(); setDetailModalOpen(true); }}>
           <div className={`font-medium `}>${props.total_amount}</div>
         </td>
         <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
